@@ -88,7 +88,7 @@ function App() {
     <div className="flex">
       <div className="flex-col w-full">
         <nav className=" bg-blue-950 text-blue-50 shadow-md flex justify-between items-center px-8">
-          <p className="text-2xl m-0">Tu plata</p>
+          <p className="text-xl m-0">Chen Chen</p>
 
           <ul className="flex">
             <li>
