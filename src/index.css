@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+* {
+    outline: none;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.input-base {
+    @apply border border-gray-300 focus:border-gray-500 p-1 rounded box-border disabled:bg-gray-100 hover:shadow-sm;
+}
+
+.link-button {
+    @apply border-b-4 border-white hover:cursor-pointer hover:border-blue-500;
+}
+
+table {
+    @apply border border-gray-500 shadow-sm rounded;
+}
+th, tr, td {
+    @apply border border-gray-200;
+}
+
+thead {
+    @apply bg-blue-500 text-white ;
+}
+
+th {
+    @apply border-blue-200 text-blue-50 p-2 transition-all;
+}
+
+tr {
+    @apply hover:bg-gray-100;
+}
+
+td {
+    @apply p-2;
+}
