@@ -9,7 +9,7 @@ const Home: FC = () => {
     navigate(page);
   };
   return (
-    <main className="flex flex-col text-center p-4 gap-4 sm:mx-32 md:mx-64 lg:mx-96">
+    <main className="flex flex-col text-center p-4 gap-4">
       <article>
         <p className="text-xl font-bold">🙋🏽‍♂️ ¡Bienvenid@!</p>
         <p className="text-md text-gray-500">

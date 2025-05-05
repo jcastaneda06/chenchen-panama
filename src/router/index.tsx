@@ -1,18 +1,13 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import PlanillaAsamblea from "../pages/PlanillaAsamblea";
 import Canal from "../pages/Canal";
-import Navbar from "../components/Navbar";
+import MainLayout from "../layout/MainLayout";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <>
-        <Navbar />
-        <Outlet />
-      </>
-    ),
+    element: <MainLayout />,
     children: [
       {
         path: "/",

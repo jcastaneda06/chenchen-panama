@@ -83,8 +83,8 @@ const PlanillaAsamblea: FC = () => {
     setFilters({ ...filters });
   };
   return (
-    <div className="mx-4 sm:mx-16 md:mx-32 lg:mx-52">
-      <div className="flex flex-col md:flex-row py-4 gap-4">
+    <div className="">
+      <div className="flex flex-col md:flex-row pb-4 gap-4">
         <div className="flex flex-col gap-4 basis-1/2 min-w-0">
           <div className="input-base flex items-center gap-2 px-2">
             <Search className="text-gray-500" />

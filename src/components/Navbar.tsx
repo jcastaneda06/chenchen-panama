@@ -12,16 +12,13 @@ const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
   const navigate = useNavigate();
   const pathname = window.location.pathname;
 
-  const className = `link-button h-full p-4 ${
-    isMobile ? "border-0" : "border-b"
-  }`;
   return (
     <>
       <li>
         <button
-          className={`${className} ${
-            pathname === "/canal" ? "border-b-blue-500" : ""
-          }`}
+          className={`link-button h-full p-4 
+            ${isMobile ? "border-0" : "border-b"} 
+            ${pathname === "/planilla-asamblea" ? "border-blue-500" : ""}`}
           onClick={() => {
             navigate("/planilla-asamblea");
             if (onAfterNavigate) onAfterNavigate();
@@ -33,15 +30,29 @@ const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
       {isMobile && <span className="border-b border-gray-500" />}
       <li>
         <button
-          className={`${className} ${
-            pathname === "/canal" ? "border-b-blue-500" : ""
-          }`}
+          className={`link-button h-full p-4 
+            ${isMobile ? "border-0" : "border-b"} 
+            ${pathname === "/canal" ? "border-blue-500" : ""}`}
           onClick={() => {
             navigate("/canal");
             if (onAfterNavigate) onAfterNavigate();
           }}
         >
           Canal de Panamá
+        </button>
+      </li>
+      {isMobile && <span className="border-b border-gray-500" />}
+      <li>
+        <button
+          className={`link-button h-full p-4 
+            ${isMobile ? "border-0" : "border-b"} 
+            ${pathname === "/sugerencias" ? "border-blue-500" : ""}`}
+          onClick={() => {
+            navigate("/sugerencias");
+            if (onAfterNavigate) onAfterNavigate();
+          }}
+        >
+          Sugerencias
         </button>
       </li>
     </>
@@ -77,8 +88,11 @@ const Navbar: FC = () => {
 
   return (
     <>
-      <nav className=" bg-blue-950 text-blue-50 shadow-md flex justify-between items-center px-8 cursor-pointer">
-        <button className="text-xl m-0" onClick={() => navigate("/")}>
+      <nav className="sticky top-0 bg-blue-950 text-blue-50 shadow-md flex justify-between items-center px-8 ">
+        <button
+          className="text-xl m-0 p-4 cursor-pointer"
+          onClick={() => navigate("/")}
+        >
           Chen Chen
         </button>
 

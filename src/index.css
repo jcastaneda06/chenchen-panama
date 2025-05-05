@@ -15,7 +15,7 @@ html, body {
 }
 
 .link-button {
-    @apply border-b-4 border-white hover:cursor-pointer hover:border-blue-500;
+    @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
 }
 
 table {
