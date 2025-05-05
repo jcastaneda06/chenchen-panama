@@ -3,6 +3,7 @@ import Home from "../pages/Home";
 import PlanillaAsamblea from "../pages/PlanillaAsamblea";
 import Canal from "../pages/Canal";
 import MainLayout from "../layout/MainLayout";
+import Suggestions from "../pages/Suggestions";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
       {
         path: "canal",
         element: <Canal />,
+      },
+      {
+        path: "sugerencias",
+        element: <Suggestions />,
       },
     ],
   },

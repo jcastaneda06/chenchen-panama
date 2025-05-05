@@ -5,12 +5,10 @@ import { router } from "./router";
 
 function App() {
   return (
-    <div className="flex">
+    <>
       <Analytics />
-      <div className="flex-col w-full">
-        <RouterProvider router={router} />
-      </div>
-    </div>
+      <RouterProvider router={router} />
+    </>
   );
 }
 
