@@ -10,7 +10,6 @@ html, body {
     margin: 0;
     padding: 0;
 }
-
 .input-base {
     @apply border border-gray-300 focus:border-gray-500 p-1 rounded box-border disabled:bg-gray-100 hover:shadow-sm;
 }

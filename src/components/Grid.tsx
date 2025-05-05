@@ -28,13 +28,15 @@ const Grid: FC<Props> = (props) => {
     <div className="w-full overflow-x-auto rounded-lg">
       <table className="w-full">
         <thead>
-          <th className="w-[10%]">Cédula</th>
-          <th className="w-[10%]">Salario</th>
-          <th className="w-[10%]">Nombre</th>
-          <th className="w-[10%]">Apellido</th>
-          <th className="w-[10%]">Posición</th>
-          <th className="w-[10%]">Inicio de labores</th>
-          <th className="w-[40%]">Planilla</th>
+          <tr>
+            <th className="w-[10%]">Cédula</th>
+            <th className="w-[10%]">Salario</th>
+            <th className="w-[10%]">Nombre</th>
+            <th className="w-[10%]">Apellido</th>
+            <th className="w-[10%]">Posición</th>
+            <th className="w-[10%]">Inicio de labores</th>
+            <th className="w-[40%]">Planilla</th>
+          </tr>
         </thead>
         <tbody>
           {currentData?.map((d) => (
