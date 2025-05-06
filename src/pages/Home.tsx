@@ -20,14 +20,14 @@ const Home: FC = () => {
       </article>
       <section className="grid grid-cols-2 gap-4">
         <button
-          className="flex flex-col items-center justify-center w-full h-24 input-base hover:text-white hover:bg-blue-950 transition-all cursor-pointer"
+          className="flex flex-col items-center justify-center p-4 w-full h-24 input-base hover:text-white hover:bg-blue-950 transition-all cursor-pointer"
           onClick={() => handleNavigate("/planilla-asamblea")}
         >
           <FileUser />
           <p className="font-bold">Planilla Asamblea</p>
         </button>
         <button
-          className="flex flex-col items-center justify-center w-full h-24 input-base hover:text-white hover:bg-blue-950 transition-all cursor-pointer"
+          className="flex flex-col items-center justify-center p-4 w-full h-24 input-base hover:text-white hover:bg-blue-950 transition-all cursor-pointer"
           onClick={() => handleNavigate("/canal")}
         >
           <Ship />

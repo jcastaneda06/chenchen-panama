@@ -21,7 +21,7 @@ html, body {
 }
 
 .button {
-    @apply border border-blue-900 rounded-md bg-blue-900 text-white font-bold px-4 py-1 cursor-pointer hover:bg-blue-900 transition-all;
+    @apply border border-blue-900 rounded-md bg-blue-900 text-white font-bold px-4 py-1 cursor-pointer hover:bg-blue-950 transition-all;
 }
 
 .link-button {
@@ -31,6 +31,7 @@ html, body {
 table {
     @apply border border-gray-500 shadow-sm rounded;
 }
+
 th, tr, td {
     @apply border border-gray-200;
 }
@@ -43,7 +44,7 @@ th {
     @apply border-blue-200 text-blue-50 p-2 transition-all;
 }
 
-tr {
+tbody tr {
     @apply hover:bg-gray-100;
 }
 

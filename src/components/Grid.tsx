@@ -25,41 +25,40 @@ const Grid: FC<Props> = (props) => {
   }, [data]);
 
   return (
-    <div className="w-full overflow-x-auto rounded-lg">
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th className="w-[10%]">Cédula</th>
-            <th className="w-[10%]">Salario</th>
-            <th className="w-[10%]">Nombre</th>
-            <th className="w-[10%]">Apellido</th>
-            <th className="w-[10%]">Posición</th>
-            <th className="w-[10%]">Inicio de labores</th>
-            <th className="w-[40%]">Planilla</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentData?.map((d) => (
-            <tr>
-              <td className="truncate">{d.cedula}</td>
-              <td className="truncate">${d.salarioBruto}</td>
-              <td className="truncate">{d.nombre}</td>
-              <td className="truncate">{d.apellido}</td>
-              <td className="truncate">{d.posicion}</td>
-              <td className="truncate">
-                {moment(d.fechaInicio).locale("es").format("DD MMMM YYYY")}
-              </td>
-              <td className="truncate">{d.ubicacion}</td>
+    <>
+      <div className="w-full overflow-x-auto rounded-lg" style={{}}>
+        <table className="w-full">
+          <thead>
+            <tr className="h-[42px]">
+              <th className="w-[10%]">Cédula</th>
+              <th className="w-[10%]">Salario</th>
+              <th className="w-[10%]">Nombre</th>
+              <th className="w-[10%]">Apellido</th>
+              <th className="w-[10%]">Posición</th>
+              <th className="w-[10%]">Inicio de labores</th>
+              <th className="w-[40%]">Planilla</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {currentData?.map((d) => (
+              <tr>
+                <td className="truncate">{d.cedula}</td>
+                <td className="truncate">${d.salarioBruto}</td>
+                <td className="truncate">{d.nombre}</td>
+                <td className="truncate">{d.apellido}</td>
+                <td className="truncate">{d.posicion}</td>
+                <td className="truncate">
+                  {moment(d.fechaInicio).locale("es").format("DD MMMM YYYY")}
+                </td>
+                <td className="truncate">{d.ubicacion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="flex justify-between py-4">
         <div className="flex items-center gap-2">
-          <p>
-            {totalPages} páginas ({data.length}{" "}
-            {data.length > 0 ? "resultados" : "resultado"})
-          </p>
+          <p>{totalPages} páginas</p>
           <button
             className="input-base"
             disabled={currentPage === 1}
@@ -96,7 +95,7 @@ const Grid: FC<Props> = (props) => {
           </select>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

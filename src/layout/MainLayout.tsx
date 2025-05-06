@@ -23,7 +23,7 @@ const MainLayout = () => {
           <Outlet />
         </article>
       </section>
-      <footer className="bg-gray-200 p-4 text-gray-500 text-center">
+      <footer className="bg-gray-200 p-4 text-gray-500 text-center text-sm">
         <p>
           Developed by{" "}
           <a
