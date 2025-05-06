@@ -8,8 +8,13 @@
 
 html, body {
     height: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#root {
+    height: 100%;
 }
 
 #root {
@@ -21,16 +26,18 @@ html, body {
 }
 
 .button {
-    @apply border border-blue-900 rounded-md bg-blue-900 text-white font-bold px-4 py-1 cursor-pointer hover:bg-blue-900 transition-all;
+    @apply border border-blue-900 rounded-md bg-blue-900 text-white font-bold px-4 py-1 cursor-pointer hover:bg-blue-950 transition-all;
 }
 
 .link-button {
+    @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
     @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
 }
 
 table {
     @apply border border-gray-500 shadow-sm rounded;
 }
+
 th, tr, td {
     @apply border border-gray-200;
 }
@@ -43,7 +50,7 @@ th {
     @apply border-blue-200 text-blue-50 p-2 transition-all;
 }
 
-tr {
+tbody tr {
     @apply hover:bg-gray-100;
 }
 

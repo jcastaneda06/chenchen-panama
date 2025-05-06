@@ -16,9 +16,12 @@ const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
     <>
       <li>
         <button
-          className={`link-button h-full p-4 
-            ${isMobile ? "border-0" : "border-b"} 
-            ${pathname === "/planilla-asamblea" ? "border-blue-500" : ""}`}
+          className={`link-button h-full p-4 w-full
+            ${
+              pathname === "/planilla-asamblea"
+                ? "border-b-blue-500"
+                : "border-b-white"
+            }`}
           onClick={() => {
             navigate("/planilla-asamblea");
             if (onAfterNavigate) onAfterNavigate();
@@ -27,12 +30,11 @@ const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
           Planilla asamblea
         </button>
       </li>
-      {isMobile && <span className="border-b border-gray-500" />}
+      {isMobile && <span className="border-b border-gray-300" />}
       <li>
         <button
-          className={`link-button h-full p-4 
-            ${isMobile ? "border-0" : "border-b"} 
-            ${pathname === "/canal" ? "border-blue-500" : ""}`}
+          className={`link-button h-full p-4  w-full
+            ${pathname === "/canal" ? "border-blue-500" : "border-b-white"}`}
           onClick={() => {
             navigate("/canal");
             if (onAfterNavigate) onAfterNavigate();
@@ -41,12 +43,13 @@ const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
           Canal de Panamá
         </button>
       </li>
-      {isMobile && <span className="border-b border-gray-500" />}
+      {isMobile && <span className="border-b border-gray-300" />}
       <li>
         <button
-          className={`link-button h-full p-4 
-            ${isMobile ? "border-0" : "border-b"} 
-            ${pathname === "/sugerencias" ? "border-blue-500" : ""}`}
+          className={`link-button h-full p-4 w-full
+            ${
+              pathname === "/sugerencias" ? "border-blue-500" : "border-b-white"
+            }`}
           onClick={() => {
             navigate("/sugerencias");
             if (onAfterNavigate) onAfterNavigate();
@@ -109,7 +112,7 @@ const Navbar: FC = () => {
       </nav>
       <div
         ref={sidebarRef}
-        className={`md:hidden absolute w-48 bg-white h-full shadow-md top-0 right-0 transition-all ease-in-out ${
+        className={`md:hidden fixed w-48 bg-white h-full shadow-md top-0 right-0 transition-all ease-in-out ${
           showSidebar ? "translate-x-0" : "translate-x-full hidden"
         }`}
       >
