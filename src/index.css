@@ -8,8 +8,13 @@
 
 html, body {
     height: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
+}
+
+#root {
+    height: 100%;
 }
 
 #root {
@@ -25,6 +30,7 @@ html, body {
 }
 
 .link-button {
+    @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
     @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
 }
 
