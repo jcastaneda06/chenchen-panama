@@ -1,6 +1,7 @@
 import { FileUser, HandCoins, Ship } from "lucide-react";
 import { FC, ReactNode } from "react";
 import { useNavigate } from "react-router";
+import BuyMeACoffee from "../components/BuyMeACoffee";
 
 type Props = {
   text: string;
@@ -53,6 +54,9 @@ const Home: FC = () => {
           icon={<HandCoins />}
           onClick={() => handleNavigate("/calculo-jubilacion")}
         />
+      </section>
+      <section>
+        <BuyMeACoffee />
       </section>
     </main>
   );

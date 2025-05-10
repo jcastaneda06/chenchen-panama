@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Information from "../components/Info";
 import TextInput from "../components/TextInput";
+import BuyMeACoffee from "../components/BuyMeACoffee";
 
 const RetirementCalculator = () => {
   const [salarioMensual, setSalarioMensual] = useState<string>("");
@@ -105,11 +106,7 @@ const RetirementCalculator = () => {
             <p>Jubilacion con garantia</p>
             <p className="font-bold">$ {jubilacion.pensionFinalConGarantía}</p>
           </div>
-          <div className="flex mt-8 justify-center items-center">
-            <a href="https://www.buymeacoffee.com/jcs98126d">
-              <img src="https://img.buymeacoffee.com/button-api/?text=Cómprame un café&emoji=&slug=jcs98126d&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
-            </a>
-          </div>
+          <BuyMeACoffee />
         </section>
       )}
     </main>
