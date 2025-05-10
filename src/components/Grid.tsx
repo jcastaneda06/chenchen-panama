@@ -1,14 +1,14 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Data } from "../types/Data";
+import { Planilla } from "../types/Data";
 import moment from "moment";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 
 type Props = {
-  data: Data[];
+  data: Planilla[];
   itemsPerPage: number;
 };
 
-const Grid: FC<Props> = (props) => {
+const PlanillaTable: FC<Props> = (props) => {
   const { data, itemsPerPage } = props;
   const [currentPage, setCurrentPage] = useState<number>(1);
 
@@ -99,4 +99,4 @@ const Grid: FC<Props> = (props) => {
   );
 };
 
-export default memo(Grid);
+export default memo(PlanillaTable);

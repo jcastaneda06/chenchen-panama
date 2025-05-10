@@ -5,64 +5,50 @@ import { useNavigate } from "react-router";
 type LinksListProps = {
   isMobile?: boolean;
   onAfterNavigate?: () => void;
+  links: {
+    route: string;
+    title: string;
+  }[];
 };
 
 const LinksList: FC<PropsWithChildren<LinksListProps>> = (props) => {
-  const { isMobile, onAfterNavigate } = props;
+  const { isMobile, onAfterNavigate, links } = props;
   const navigate = useNavigate();
   const pathname = window.location.pathname;
 
   return (
     <>
-      <li>
-        <button
-          className={`link-button h-full p-4 w-full
+      {links.map(
+        (link) =>
+          link.route !== "/" && (
+            <>
+              <li>
+                <button
+                  className={`link-button h-full p-4 w-full
             ${
-              pathname === "/planilla-asamblea"
-                ? "border-b-blue-500"
-                : "border-b-white"
+              pathname === link.route ? "border-b-blue-500" : "border-b-white"
             }`}
-          onClick={() => {
-            navigate("/planilla-asamblea");
-            if (onAfterNavigate) onAfterNavigate();
-          }}
-        >
-          Planilla asamblea
-        </button>
-      </li>
-      {isMobile && <span className="border-b border-gray-300" />}
-      <li>
-        <button
-          className={`link-button h-full p-4  w-full
-            ${pathname === "/canal" ? "border-blue-500" : "border-b-white"}`}
-          onClick={() => {
-            navigate("/canal");
-            if (onAfterNavigate) onAfterNavigate();
-          }}
-        >
-          Canal de Panamá
-        </button>
-      </li>
-      {isMobile && <span className="border-b border-gray-300" />}
-      <li>
-        <button
-          className={`link-button h-full p-4 w-full
-            ${
-              pathname === "/sugerencias" ? "border-blue-500" : "border-b-white"
-            }`}
-          onClick={() => {
-            navigate("/sugerencias");
-            if (onAfterNavigate) onAfterNavigate();
-          }}
-        >
-          Sugerencias
-        </button>
-      </li>
+                  onClick={() => {
+                    navigate(link.route);
+                    if (onAfterNavigate) onAfterNavigate();
+                  }}
+                >
+                  {link.title}
+                </button>
+              </li>
+              {isMobile && <span className="border-b border-gray-300" />}
+            </>
+          )
+      )}
     </>
   );
 };
 
-const Navbar: FC = () => {
+type NavbarProps = {
+  routes: { route: string; title: string }[];
+};
+const Navbar: FC<NavbarProps> = (props) => {
+  const { routes } = props;
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
@@ -107,7 +93,7 @@ const Navbar: FC = () => {
           <Menu />
         </button>
         <ul className="hidden md:flex gap-4 ">
-          <LinksList />
+          <LinksList links={routes} />
         </ul>
       </nav>
       <div
@@ -117,7 +103,11 @@ const Navbar: FC = () => {
         }`}
       >
         <ul className="flex flex-col relative">
-          <LinksList isMobile onAfterNavigate={() => setShowSidebar(false)} />
+          <LinksList
+            links={routes}
+            isMobile
+            onAfterNavigate={() => setShowSidebar(false)}
+          />
         </ul>
       </div>
     </>

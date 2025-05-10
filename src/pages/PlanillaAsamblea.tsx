@@ -1,13 +1,13 @@
 import { Search, SortAsc, SortDesc } from "lucide-react";
 import { FC, useMemo, useState } from "react";
-import { Data, Filters } from "../types";
+import { Planilla, Filters } from "../types";
 import rawData from "../assets/data/data.json";
 import { useDebounce } from "use-debounce";
 import { formatSalary } from "../helpers";
-import Grid from "../components/Grid";
+import PlanillaTable from "../components/Grid";
 
-const typedData: Data[] = rawData as Data[];
-const skipEntidad: keyof Data = "entidad";
+const typedData: Planilla[] = rawData as Planilla[];
+const skipEntidad: keyof Planilla = "entidad";
 
 const data = typedData.map((d) => {
   const { [skipEntidad]: _, ...filtered } = d;
@@ -177,7 +177,7 @@ const PlanillaAsamblea: FC = () => {
         </div>
       </div>
       {dataMemo.length > 0 ? (
-        <Grid data={dataMemo as Data[]} itemsPerPage={10} />
+        <PlanillaTable data={dataMemo as Planilla[]} itemsPerPage={10} />
       ) : (
         <p>No data</p>
       )}

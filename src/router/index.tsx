@@ -4,6 +4,7 @@ import PlanillaAsamblea from "../pages/PlanillaAsamblea";
 import Canal from "../pages/Canal";
 import MainLayout from "../layout/MainLayout";
 import Suggestions from "../pages/Suggestions";
+import RetirementCalculator from "../pages/RetirmentCalculator";
 
 export const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ export const router = createBrowserRouter([
     element: <MainLayout />,
     children: [
       {
-        path: "/",
+        path: "",
         element: <Home />,
       },
       {
@@ -21,6 +22,10 @@ export const router = createBrowserRouter([
       {
         path: "canal",
         element: <Canal />,
+      },
+      {
+        path: "calculo-jubilacion",
+        element: <RetirementCalculator />,
       },
       {
         path: "sugerencias",

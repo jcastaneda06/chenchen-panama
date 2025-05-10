@@ -1,4 +1,4 @@
-export type Data = {
+export type Planilla = {
   entidad?: string;
   cedula: string;
   posicion: number;
