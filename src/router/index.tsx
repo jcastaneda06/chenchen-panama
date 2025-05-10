@@ -4,7 +4,7 @@ import PlanillaAsamblea from "../pages/PlanillaAsamblea";
 import Canal from "../pages/Canal";
 import MainLayout from "../layout/MainLayout";
 import Suggestions from "../pages/Suggestions";
-import RetirementCalculator from "../pages/RetirmentCalculator";
+import RetirementCalculator from "../pages/RetirementCalculator";
 
 export const router = createBrowserRouter([
   {
