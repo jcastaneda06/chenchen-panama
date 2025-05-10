@@ -10,7 +10,7 @@ const Information: FC<Props> = (props) => {
   return (
     <div className="bg-gray-200 p-4 rounded flex gap-2 text-gray-600">
       <div>
-        <Info size={20} />
+        <Info size={16} />
       </div>
       <p>{text}</p>
     </div>

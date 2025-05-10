@@ -25,9 +25,6 @@ const GridMenuButton: FC<Props> = (props) => {
 const Home: FC = () => {
   const navigate = useNavigate();
 
-  const handleNavigate = (page: string) => {
-    navigate(page);
-  };
   return (
     <main className="flex flex-col text-center p-4 gap-4">
       <article>
@@ -42,17 +39,17 @@ const Home: FC = () => {
         <GridMenuButton
           text="Planilla Asamblea"
           icon={<FileUser />}
-          onClick={() => handleNavigate("/planilla-asamblea")}
+          onClick={() => navigate("/planilla-asamblea")}
         />
         <GridMenuButton
           text="Canal de Panamá"
           icon={<Ship />}
-          onClick={() => handleNavigate("/canal")}
+          onClick={() => navigate("/canal")}
         />
         <GridMenuButton
           text="Calculadora de Jubilación"
           icon={<HandCoins />}
-          onClick={() => handleNavigate("/calculo-jubilacion")}
+          onClick={() => navigate("/calculo-jubilacion")}
         />
       </section>
       <section>
