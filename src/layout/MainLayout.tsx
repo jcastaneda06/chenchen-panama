@@ -1,22 +1,29 @@
 import { Outlet, useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 
-const pageNames: { [key: string]: string } = {
-  "/planilla-asamblea": "Planilla Asamblea",
-  "/canal": "Canal",
-  "/sugerencias": "Sugerencias",
-  "/": "",
-};
+const pageNames: { route: string; title: string }[] = [
+  { route: "/", title: "" },
+  { route: "/planilla-asamblea", title: "Planilla Asamblea" },
+  { route: "/calculo-jubilacion", title: "Cálculo de Jubilación" },
+  { route: "/canal", title: "Canal" },
+  { route: "/sugerencias", title: "Sugerencias" },
+];
 
 const MainLayout = () => {
   const pathname = useLocation().pathname;
-
+  const currentPage = pageNames.find((p) => p.route === pathname);
   return (
     <main className="flex flex-col justify-between h-full">
       <section className="flex-1">
-        <Navbar />
+        <Navbar routes={pageNames} />
         <article className="mx-4 sm:mx-16 md:mx-24 lg:mx-64 pt-4">
-          <h1 className="text-2xl font-bold">{pageNames[pathname]}</h1>
+          <h1 className="text-2xl font-bold">
+            {pathname === "/"
+              ? ""
+              : !currentPage
+              ? "Go to MainLayout.tsx to set page name"
+              : currentPage?.title}
+          </h1>
           {pathname !== "/" && (
             <span className="block border-b border-b-gray-300 w-full h-[1px] mb-4" />
           )}

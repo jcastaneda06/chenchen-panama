@@ -1,5 +1,6 @@
-import { Info, Mail, MessageCircle, User } from "lucide-react";
+import { Mail, MessageCircle, User } from "lucide-react";
 import { FC } from "react";
+import Information from "../components/Info";
 
 const Suggestions: FC = () => {
   return (
@@ -69,17 +70,17 @@ const Suggestions: FC = () => {
           </form>
         </section>
       </section>
-      <section className="flex items-center justify-center flex-1">
-        <div className="bg-gray-200 p-4 rounded flex gap-2 text-gray-600">
-          <div>
-            <Info size={20} />
-          </div>
-          <p>
-            Chen Chen Panamá es una iniciativa independiente y tanto su creador
-            como la aplicación web no se encuentra afiliada a ningun medio, red
-            o partido político. Toda la información accesible en esta página web
-            es información pública.
-          </p>
+      <section className="flex flex-col gap-4 items-start justify-center flex-1">
+        <Information
+          text="Chen Chen Panamá es una iniciativa independiente y tanto su creador como
+        la aplicación web no se encuentra afiliada a ningun medio, red o partido
+        político. Toda la información accesible en esta página web es
+        información pública."
+        />
+        <div className="flex justify-center items-center">
+          <a href="https://www.buymeacoffee.com/jcs98126d">
+            <img src="https://img.buymeacoffee.com/button-api/?text=Cómprame un café&emoji=&slug=jcs98126d&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" />
+          </a>
         </div>
       </section>
     </main>
