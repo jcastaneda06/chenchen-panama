@@ -1,7 +1,6 @@
 import { RefObject, useRef, useState } from "react";
 import Information from "../components/Info";
 import TextInput from "../components/TextInput";
-import BuyMeACoffee from "../components/BuyMeACoffee";
 import { formatSalary } from "../helpers";
 import { Info, X } from "lucide-react";
 
@@ -199,8 +198,6 @@ const RetirementCalculator = () => {
               {formatSalary(Number(jubilacion.pensionFinalConGarantía))}
             </p>
           </div>
-
-          <BuyMeACoffee />
         </section>
       )}
     </main>
