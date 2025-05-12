@@ -12,7 +12,7 @@ const RetirementCalculator = () => {
   const capitalizacionRef = useRef<HTMLDivElement>(null);
 
   const handleCalcularPension = ({
-    tasaInteresCompuesto = 0.03,
+    tasaInteresCompuesto = 0.04,
     tasaAporte = 0.135,
     factorActuarial = 200,
   }: {
