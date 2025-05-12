@@ -46,7 +46,7 @@ const Home: FC = () => {
           onClick={() => navigate("/canal")}
         />
         <GridMenuButton
-          text="Calculadora de Jubilación"
+          text="Calculadora de Jubilación Ley 462"
           icon={<HandCoins />}
           onClick={() => navigate("/calculo-jubilacion")}
         />
