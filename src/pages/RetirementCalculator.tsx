@@ -81,7 +81,7 @@ const RetirementCalculator = () => {
       <section className="border border-gray-300 p-4 rounded flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-2">
           <div className="flex-1 flex flex-col justify-between">
-            <label>Salario al mes promeido</label>
+            <label>Salario al mes promedio</label>
             <TextInput
               value={salarioMensual}
               type="number"

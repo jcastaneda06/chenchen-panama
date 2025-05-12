@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 const pageNames: { route: string; title: string }[] = [
   { route: "/", title: "" },
   { route: "/planilla-asamblea", title: "Planilla Asamblea" },
-  { route: "/calculo-jubilacion", title: "Cálculo de Jubilación" },
+  { route: "/calculo-jubilacion", title: "Cálculo de Jubilación Ley 462" },
   { route: "/canal", title: "Canal" },
   { route: "/sugerencias", title: "Sugerencias" },
 ];
