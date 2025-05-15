@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import PlanillaAsamblea from "../pages/PlanillaAsamblea";
-import Canal from "../pages/Canal";
+import Documents from "../pages/Documents";
 import MainLayout from "../layout/MainLayout";
 import Suggestions from "../pages/Suggestions";
 import RetirementCalculator from "../pages/RetirementCalculator";
@@ -20,8 +20,8 @@ export const router = createBrowserRouter([
         element: <PlanillaAsamblea />,
       },
       {
-        path: "canal",
-        element: <Canal />,
+        path: "documentos",
+        element: <Documents />,
       },
       {
         path: "calculo-jubilacion",
