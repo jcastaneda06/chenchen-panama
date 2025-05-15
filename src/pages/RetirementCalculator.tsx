@@ -76,7 +76,7 @@ const RetirementCalculator = () => {
   return (
     <main className="flex flex-col gap-4">
       <article>
-        <Information text="Esta calculadora usa datos aproximados como el interés compuesto y podría no ser precisa. Sus resultados deben ser tomados como referencia y nunca hechos 100% precisos." />
+        <Information text="Esta calculadora usa datos aproximados y podría no ser precisa. Sus resultados deben ser tomados como referencia y nunca hechos 100% precisos." />
       </article>
       <section className="border border-gray-300 p-4 rounded flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-2">

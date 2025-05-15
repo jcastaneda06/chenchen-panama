@@ -1,4 +1,4 @@
-import { FileUser, HandCoins, Ship } from "lucide-react";
+import { FileUser, HandCoins, Scroll } from "lucide-react";
 import { FC, ReactNode } from "react";
 import { useNavigate } from "react-router";
 
@@ -41,9 +41,9 @@ const Home: FC = () => {
           onClick={() => navigate("/planilla-asamblea")}
         />
         <GridMenuButton
-          text="Canal de Panamá"
-          icon={<Ship />}
-          onClick={() => navigate("/canal")}
+          text="Documentos"
+          icon={<Scroll />}
+          onClick={() => navigate("/documentos")}
         />
         <GridMenuButton
           text="Calculadora de Jubilación Ley 462"

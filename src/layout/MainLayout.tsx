@@ -5,7 +5,7 @@ const pageNames: { route: string; title: string }[] = [
   { route: "/", title: "" },
   { route: "/planilla-asamblea", title: "Planilla Asamblea" },
   { route: "/calculo-jubilacion", title: "Cálculo de Jubilación Ley 462" },
-  { route: "/canal", title: "Canal" },
+  { route: "/documentos", title: "Documentos" },
   { route: "/sugerencias", title: "Sugerencias" },
 ];
 
