@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useRef } from "react";
 import JointDeclaration from "../assets/data/joint-declaration.jpeg";
 import Memorandum from "../assets/data/memorandum-entendimiento.pdf";
 import Ley462 from "../assets/data/ley-462.pdf";
@@ -13,26 +13,14 @@ type PageProps = {
 const Page: FC<PageProps> = (props) => {
   const { title, file } = props;
   const linkRef = useRef<HTMLAnchorElement>(null);
-  const [isTruncated, setIsTruncated] = useState<boolean>(false);
-  useEffect(() => {
-    if (linkRef.current) {
-      const isTruncated =
-        linkRef.current &&
-        linkRef?.current.offsetWidth > linkRef?.current.scrollWidth;
-
-      setIsTruncated(isTruncated);
-    }
-  }, [linkRef.current, window.innerWidth]);
 
   return (
     <>
       <a
         ref={linkRef}
-        data-tooltip-id={isTruncated ? "canal-tooltips" : ""}
-        data-tooltip-content={title}
-        data-tooltip-place="top"
-        className="flex items-center gap-4 p-4 border border-gray-300 hover:shadow-md text-ellipsis text-gray-500"
         href={file}
+        target="_blank"
+        className="flex items-center gap-4 p-4 border border-gray-300 hover:shadow-md text-ellipsis text-gray-500"
       >
         <Scroll size={20} className="" />
         <p className="decoration-0 truncate">{title}</p>
