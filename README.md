@@ -81,7 +81,27 @@ feature/<tus-iniciales>/<descripcion-corta-de-la-feature>
 3. **Haz tus cambios y commitea con mensajes claros y descriptivos.**
 4. **Abre un Pull Request (PR) hacia la rama `develop`.**
 
-- Los títulos y descripciones de los PR pueden estar en **español**, ya que el proyecto está orientado a la comunidad panameña.
+- Los títulos y descripciones de los PR pueden estar en **español**, ya que el proyecto está orientado a la comunidad panameña, sin embargo, los nombres de variables, funciones, componentes, etc, deben estar en inglés con excepciones como 'planilla' o 'cedula' que pueden ser nombres de variables o estar incluidos en nombres de funciones o componentes. En tal caso se permitira que dicho nombre propio no esté traducido al inglés.
+  _Ejemplo:_
+
+  ```ts
+  const planillas = [
+    ...new Set(
+      [...data].map((o) => o.ubicacion).sort((a, b) => a.localeCompare(b)),
+    ),
+  ]
+
+  const PlanillaAsamblea: FC = () => {
+    const [search, setSearch] = useState<string>()
+    const [multiplier, setMultiplier] = useState<'d' | 'm' | 'y'>('m')
+    const [filters, setFilters] = useState<Filters>({
+      sortBy: 'Nombre',
+      sort: '-asc',
+      planilla: '',
+    })
+    //...
+  ```
+
 - Asegúrate de describir claramente qué problema resuelve tu PR o qué funcionalidad agrega.
 
 5. **Espera la revisión y feedback antes de hacer merge.**
