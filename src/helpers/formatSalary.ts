@@ -1,21 +1,21 @@
-export const formatSalary = (salary: number, multiplier?: "d" | "m" | "y") => {
+export const formatSalary = (salary: number, multiplier?: 'd' | 'm' | 'y') => {
   if (multiplier)
     switch (multiplier) {
-      case "d":
-        salary = salary / 30;
-        break;
-      case "y":
-        salary = salary * 12;
-        break;
+      case 'd':
+        salary = salary / 30
+        break
+      case 'y':
+        salary = salary * 12
+        break
       default:
-        salary;
-        break;
+        salary
+        break
     }
 
-  const formatted = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(salary);
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(salary)
 
-  return formatted;
-};
+  return formatted
+}

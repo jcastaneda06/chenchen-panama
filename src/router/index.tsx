@@ -1,40 +1,40 @@
-import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import PlanillaAsamblea from "../pages/PlanillaAsamblea";
-import Documents from "../pages/Documents";
-import MainLayout from "../layout/MainLayout";
-import Suggestions from "../pages/Suggestions";
-import RetirementCalculator from "../pages/RetirementCalculator";
+import { createBrowserRouter } from 'react-router-dom'
+import Home from '../pages/Home'
+import PlanillaAsamblea from '../pages/PlanillaAsamblea'
+import Documents from '../pages/Documents'
+import MainLayout from '../layout/MainLayout'
+import Suggestions from '../pages/Suggestions'
+import RetirementCalculator from '../pages/RetirementCalculator'
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     children: [
       {
-        path: "",
+        path: '',
         element: <Home />,
       },
       {
-        path: "planilla-asamblea",
+        path: 'planilla-asamblea',
         element: <PlanillaAsamblea />,
       },
       {
-        path: "documentos",
+        path: 'documentos',
         element: <Documents />,
       },
       {
-        path: "calculo-jubilacion",
+        path: 'calculo-jubilacion',
         element: <RetirementCalculator />,
       },
       {
-        path: "sugerencias",
+        path: 'sugerencias',
         element: <Suggestions />,
       },
     ],
   },
   {
-    path: "*",
+    path: '*',
     element: <div>404 Not Found</div>,
   },
-]);
+])
