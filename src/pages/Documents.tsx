@@ -2,8 +2,8 @@ import { FC, useRef } from "react";
 import JointDeclaration from "../assets/data/joint-declaration.jpeg";
 import Memorandum from "../assets/data/memorandum-entendimiento.pdf";
 import Ley462 from "../assets/data/ley-462.pdf";
-import { Scroll } from "lucide-react";
 import Information from "../components/Info";
+import { PaperClipOutlined } from "@ant-design/icons";
 
 type PageProps = {
   title: string;
@@ -22,7 +22,7 @@ const Page: FC<PageProps> = (props) => {
         target="_blank"
         className="flex items-center gap-4 p-4 border border-gray-300 hover:shadow-md text-ellipsis text-gray-500"
       >
-        <Scroll size={20} className="" />
+        <PaperClipOutlined size={20} />
         <p className="decoration-0 truncate">{title}</p>
       </a>
     </>

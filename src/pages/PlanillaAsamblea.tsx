@@ -1,10 +1,68 @@
-import { Search, SortAsc, SortDesc } from "lucide-react";
 import { FC, useMemo, useState } from "react";
 import { Planilla, Filters } from "../types";
 import rawData from "../assets/data/data.json";
 import { useDebounce } from "use-debounce";
 import { formatSalary } from "../helpers";
-import PlanillaTable from "../components/Grid";
+import Table from "../components/Table";
+import { TableProps, Select } from "antd";
+import TextInput from "../components/TextInput";
+
+const headings: TableProps<Planilla>["columns"] = [
+  {
+    key: "cedula",
+    dataIndex: "cedula",
+    title: "Cedula",
+    fixed: "left",
+    width: "10%",
+    ellipsis: true,
+    render: (text) => (
+      <div style={{ wordWrap: "break-word", wordBreak: "break-word" }}>
+        {text}
+      </div>
+    ),
+  },
+  {
+    key: "salario",
+    dataIndex: "salarioBruto",
+    title: "Salario",
+    render: (salario) => formatSalary(salario),
+    showSorterTooltip: false,
+    sorter: (a, b) => a.salarioBruto - b.salarioBruto,
+    fixed: "left",
+  },
+  {
+    key: "nombre",
+    dataIndex: "nombre",
+    title: "Nombre",
+    showSorterTooltip: false,
+    sorter: (a, b) => a.nombre.localeCompare(b.nombre),
+  },
+  {
+    key: "apellido",
+    dataIndex: "apellido",
+    title: "Apellido",
+    showSorterTooltip: false,
+    sorter: (a, b) => a.apellido.localeCompare(b.apellido),
+  },
+  {
+    key: "posicion",
+    dataIndex: "posicion",
+    title: "Posicion",
+  },
+  {
+    key: "inicioLabores",
+    dataIndex: "fechaInicio",
+    title: "InicioLabores",
+  },
+  {
+    key: "planilla",
+    dataIndex: "ubicacion",
+    title: "Planilla",
+    showSorterTooltip: false,
+    sorter: (a, b) => a.ubicacion.localeCompare(b.ubicacion),
+    ellipsis: true,
+  },
+];
 
 const typedData: Planilla[] = rawData as Planilla[];
 const skipEntidad: keyof Planilla = "entidad";
@@ -83,105 +141,76 @@ const PlanillaAsamblea: FC = () => {
     setFilters({ ...filters });
   };
   return (
-    <div className="">
+    <>
       <div className="flex flex-col md:flex-row pb-4 gap-4">
         <div className="flex flex-col gap-4 basis-1/2 min-w-0">
-          <div className="input-base flex items-center gap-2 px-2">
-            <Search className="text-gray-500" />
-            <input
-              className="outline-0 w-full"
-              type="text"
-              value={search}
-              placeholder="Buscar nombre, salario, etc..."
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
+          <TextInput
+            type="text"
+            value={search}
+            placeholder="Buscar nombre, salario, etc..."
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
           <div className="flex flex-col gap-2">
             <div className="flex gap-2 items-center">
-              <p>Ordenar por:</p>
-              <button
-                className="input-base rounded-l"
-                onClick={() =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    sort: prev.sort === "-asc" ? "asc" : "-asc",
-                  }))
-                }
-              >
-                {filters.sort === "-asc" ? (
-                  <SortDesc size={20} />
-                ) : (
-                  <SortAsc size={20} />
-                )}
-              </button>
-              <select
-                className="input-base"
-                value={filters.sortBy}
-                onChange={(e) =>
-                  handleSetFilters({
-                    sortBy: e.target.value as typeof filters.sortBy,
-                    sort: filters.sort,
-                    planilla: filters.planilla,
-                  })
-                }
-              >
-                <option value={"Salario"}>Salario</option>
-                <option value={"Nombre"}>Nombre</option>
-              </select>
-            </div>
-            <div className="flex gap-2 items-center">
               <p>Planilla:</p>
-              <select
-                className="input-base max-w-[200px] truncate"
+              <Select
+                showSearch
                 value={filters.planilla}
+                style={{ width: "100%" }}
                 onChange={(e) =>
                   handleSetFilters({
                     sortBy: filters.sortBy,
                     sort: filters.sort,
-                    planilla: e.target.value,
+                    planilla: e,
                   })
                 }
-              >
-                <option value={""}>Todas</option>
-                {planillas.map((o, i) => (
-                  <option key={`${o}-${i}`} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
+                options={[
+                  { label: "Todas", value: "" },
+                  ...planillas.map((o) => ({ label: o, value: o })),
+                ]}
+              />
             </div>
           </div>
         </div>
         <div className="flex justify-end basis-1/2 min-w-0">
-          <div className="flex flex-col justify-between items-end">
+          <div className="flex flex-col justify-between items-end mt-4">
             <div className="flex">Actualizado 25 abril 2025</div>
-            <div className="flex justify-end items-end gap-2">
+            <div className="flex justify-end items-center gap-2">
               <p>
                 Total de planilla:{" "}
                 <strong>{formatSalary(totalSalaries, multiplier)}</strong>
               </p>
-              <select
-                className="input-base"
+              <Select
+                style={{ width: "75px" }}
                 defaultValue={"m"}
-                onChange={(e) =>
-                  setMultiplier(e.target.value as typeof multiplier)
-                }
-              >
-                <option value={"d"}>Día</option>
-                <option value={"m"}>Mes</option>
-                <option value={"y"}>Año</option>
-              </select>
+                options={[
+                  {
+                    label: "Dia",
+                    value: "d",
+                  },
+                  {
+                    label: "Mes",
+                    value: "m",
+                  },
+                  {
+                    label: "Año",
+                    value: "y",
+                  },
+                ]}
+                onChange={(e) => setMultiplier(e as typeof multiplier)}
+              />
             </div>
           </div>
         </div>
       </div>
       {dataMemo.length > 0 ? (
-        <PlanillaTable data={dataMemo as Planilla[]} itemsPerPage={10} />
+        // <PlanillaTable data={dataMemo as Planilla[]} itemsPerPage={10} />
+        <Table columns={[...headings]} dataSource={dataMemo} />
       ) : (
-        <p>No data</p>
+        <Table columns={[]} dataSource={[]} />
       )}
-    </div>
+    </>
   );
 };
 
