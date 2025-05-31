@@ -16,7 +16,7 @@ ChenChen Panamá inició como un pequeño proyecto personal que busca reunir dat
 
 ¡Ahora es un proyecto completamente Open Source en el que toda la comunidad de devs en Panamá puede aportar! 🚀
 
-## 🚀 Instalación
+## 🧑🏽‍💻 Instalación
 
 Como cualquier otro proyecto de toda la vida, simplemente:
 
