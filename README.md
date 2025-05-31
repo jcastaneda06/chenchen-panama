@@ -61,7 +61,10 @@ Siguiendo estos pasos, ayudamos a mantener la calidad y credibilidad del proyect
 
 ## 🤝 Contribuciones
 
-¡Las contribuciones son bienvenidas! Para mantener el orden y la calidad del código, seguimos un flujo de trabajo basado en **git-flow**. Por favor, sigue estos pasos al contribuir:
+¡Las contribuciones son bienvenidas! Para mantener el orden y la calidad del código, seguimos un flujo de trabajo basado en **git-flow**.
+Se usará [Ant Design](https://ant.design/) como la librería de componentes para escribir el UI de la aplicación. El proyecto se encuentra a la fecha en una etapa de _transición_ en la que estoy reemplazando tailwindcss por Ant Design. Esto debido a que al escalar, se esta volviendo cada vez más difíficl seguir la sintaxis de tailwindcss y es más práctico para no crear UI desde cero.
+
+Al contribuir, por favor sigue estos pasos:
 
 1. **Trabaja siempre a partir de la rama `develop`.**
 2. **Crea una nueva rama para tu feature o fix** usando el siguiente formato:
