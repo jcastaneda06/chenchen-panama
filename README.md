@@ -68,6 +68,7 @@ Siguiendo estos pasos, ayudamos a mantener la calidad y credibilidad del proyect
 
 ```
 feature/<tus-iniciales>/<descripcion-corta-de-la-feature>
+bug/<tus-iniciales>/<descripcion-corta-del-bug>
 ```
 
 **Ejemplo:**
