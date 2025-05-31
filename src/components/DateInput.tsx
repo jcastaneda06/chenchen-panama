@@ -1,15 +1,15 @@
-import { FC } from "react";
-import { DatePicker } from "antd";
+import { FC } from 'react'
+import { DatePicker } from 'antd'
 
 type Props = {
-  value: string;
-  placeholder?: string;
-  onChange: (e: string) => void;
-};
+  value: string
+  placeholder?: string
+  onChange: (e: string) => void
+}
 
 const DateInput: FC<Props> = (props) => {
-  const { placeholder, onChange } = props;
-  const dateFormat = "D MMMM YYYY";
+  const { placeholder, onChange } = props
+  const dateFormat = 'D MMMM YYYY'
 
   return (
     <DatePicker
@@ -17,7 +17,7 @@ const DateInput: FC<Props> = (props) => {
       format={dateFormat}
       onChange={onChange}
     />
-  );
-};
+  )
+}
 
-export default DateInput;
+export default DateInput

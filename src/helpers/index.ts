@@ -1,1 +1,1 @@
-export * from "./formatSalary";
+export * from './formatSalary'

@@ -1,2 +1,2 @@
-export * from "./Planilla";
-export * from "./Filters";
+export * from './Planilla'
+export * from './Filters'

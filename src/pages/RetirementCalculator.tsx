@@ -1,17 +1,17 @@
-import { useState } from "react";
-import Information from "../components/Info";
-import TextInput from "../components/TextInput";
-import { formatSalary } from "../helpers";
-import InfoCircleOutlined from "@ant-design/icons";
-import CalculatorOutlined from "@ant-design/icons";
-import { Pension } from "../types/Pension";
-import { Button, Popover } from "antd";
+import { useState } from 'react'
+import Information from '../components/Info'
+import TextInput from '../components/TextInput'
+import { formatSalary } from '../helpers'
+import InfoCircleOutlined from '@ant-design/icons'
+import CalculatorOutlined from '@ant-design/icons'
+import { Pension } from '../types/Pension'
+import { Button, Popover } from 'antd'
 
 const RetirementCalculator = () => {
-  const [pension, setPension] = useState<Pension>();
-  const [salarioMensual, setSalarioMensual] = useState<string>("");
-  const [tiempoTrabajo, setTiempoTrabajo] = useState<string>("");
-  const [edadJubilacion, setEdadJubilacion] = useState<string>("");
+  const [pension, setPension] = useState<Pension>()
+  const [salarioMensual, setSalarioMensual] = useState<string>('')
+  const [tiempoTrabajo, setTiempoTrabajo] = useState<string>('')
+  const [edadJubilacion, setEdadJubilacion] = useState<string>('')
 
   function getFactorActuarial(edad: number): number {
     const factores: { [edad: number]: number } = {
@@ -61,50 +61,50 @@ const RetirementCalculator = () => {
       78: 7.46,
       79: 7.69,
       80: 7.94,
-    };
+    }
 
-    const edadClamped = Math.max(35, Math.min(80, Math.floor(edad)));
+    const edadClamped = Math.max(35, Math.min(80, Math.floor(edad)))
 
-    return factores[edadClamped];
+    return factores[edadClamped]
   }
 
   const handleCalcularPension = (pension: Pension) => {
     const { tiempoTrabajo, tasaAporte, tasaInteresCompuesto, edadJubilacion } =
-      pension;
+      pension
 
-    const salario = Number(salarioMensual);
-    const cuotasTotales = tiempoTrabajo * 12;
-    const tasaMensual = tasaInteresCompuesto / 12;
+    const salario = Number(salarioMensual)
+    const cuotasTotales = tiempoTrabajo * 12
+    const tasaMensual = tasaInteresCompuesto / 12
 
-    let fondoTotal = 0;
+    let fondoTotal = 0
 
     for (let m = 0; m < cuotasTotales; m++) {
-      fondoTotal = fondoTotal * (1 + tasaMensual) + salario * tasaAporte;
+      fondoTotal = fondoTotal * (1 + tasaMensual) + salario * tasaAporte
     }
 
-    const factorActuarial = getFactorActuarial(edadJubilacion);
-    const pensionMensualEstimado = (fondoTotal / 1000) * factorActuarial;
+    const factorActuarial = getFactorActuarial(edadJubilacion)
+    const pensionMensualEstimado = (fondoTotal / 1000) * factorActuarial
 
     // Garantía mínima legal (ajustada a Ley 462)
-    let pensionFinalConGarantía = pensionMensualEstimado;
+    let pensionFinalConGarantía = pensionMensualEstimado
 
     if (cuotasTotales >= 240 && pensionMensualEstimado < 265) {
-      pensionFinalConGarantía = 265;
+      pensionFinalConGarantía = 265
     } else if (
       cuotasTotales >= 120 &&
       cuotasTotales < 240 &&
       pensionMensualEstimado < 144
     ) {
-      pensionFinalConGarantía = 144;
+      pensionFinalConGarantía = 144
     } else if (cuotasTotales < 120) {
-      pensionFinalConGarantía = 0;
+      pensionFinalConGarantía = 0
     }
 
     return {
       cuotasAntes: 0,
       cuotasDespues: cuotasTotales,
       cuotasTotales,
-      fondoAntesLey: "0.00",
+      fondoAntesLey: '0.00',
       fondoDespuesLey: fondoTotal.toFixed(2),
       fondoTotal: fondoTotal.toFixed(2),
       pensionMensualEstimado: pensionMensualEstimado.toFixed(2),
@@ -114,9 +114,9 @@ const RetirementCalculator = () => {
       tasaAnteriorLey: 0,
       factorActuarial,
       edadJubilacion,
-      fondoAdicionalRequerido: "0.00",
-    };
-  };
+      fondoAdicionalRequerido: '0.00',
+    }
+  }
 
   const handlePension = () => {
     const pension: Pension = {
@@ -126,60 +126,63 @@ const RetirementCalculator = () => {
       tasaInteresCompuesto: 0.04,
       tasaAnteriorLey: 0.03,
       tasaAporte: 0.135,
-    };
+    }
 
-    setPension(pension);
-  };
+    setPension(pension)
+  }
 
-  const jubilacion = pension && handleCalcularPension(pension);
+  const jubilacion = pension && handleCalcularPension(pension)
 
   return (
-    <main className="flex flex-col gap-4">
+    <main className='flex flex-col gap-4'>
       <article>
-        <Information text="Esta calculadora usa datos aproximados y podría no ser precisa. Sus resultados deben ser tomados como referencia y nunca hechos 100% precisos." />
+        <Information text='Esta calculadora usa datos aproximados y podría no ser precisa. Sus resultados deben ser tomados como referencia y nunca hechos 100% precisos.' />
       </article>
-      <section className="border border-gray-300 p-4 rounded flex flex-col gap-4">
-        <div className="grid grid-cols-2 gap-2">
-          <div className="flex-1 flex flex-col justify-between">
+      <section className='border border-gray-300 p-4 rounded flex flex-col gap-4'>
+        <div className='grid grid-cols-2 gap-2'>
+          <div className='flex-1 flex flex-col justify-between'>
             <label>Salario al mes promedio</label>
             <TextInput
               value={salarioMensual}
-              type="number"
+              type='number'
               onChange={(e) => setSalarioMensual(e.target.value)}
             />
           </div>
-          <div className="flex-1 flex flex-col justify-between">
+          <div className='flex-1 flex flex-col justify-between'>
             <label>Años de trabajo</label>
             <TextInput
               value={tiempoTrabajo}
-              type="number"
+              type='number'
               onChange={(e) => setTiempoTrabajo(e.target.value)}
             />
           </div>
-          <div className="flex-1 flex flex-col justify-between">
+          <div className='flex-1 flex flex-col justify-between'>
             <label>Edad de jubilacion</label>
             <TextInput
               value={edadJubilacion}
-              type="number"
+              type='number'
               onChange={(e) => setEdadJubilacion(e.target.value)}
             />
           </div>
         </div>
         <div>
-          <Button onClick={handlePension} icon={<CalculatorOutlined />}>
+          <Button
+            onClick={handlePension}
+            icon={<CalculatorOutlined />}
+          >
             Calcular
           </Button>
         </div>
       </section>
       {Number(jubilacion?.pensionMensualEstimado) > 0 && (
-        <section className="flex flex-col gap-4">
-          <div className="text-xl">
+        <section className='flex flex-col gap-4'>
+          <div className='text-xl'>
             <p>Jubilacion estimada</p>
-            <div className="flex gap-2 items-center">
-              <p className="font-bold">
+            <div className='flex gap-2 items-center'>
+              <p className='font-bold'>
                 {formatSalary(Number(jubilacion?.pensionMensualEstimado))}
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className='text-gray-500 text-sm'>
                 {(
                   (Number(jubilacion?.pensionMensualEstimado) /
                     Number(salarioMensual)) *
@@ -189,19 +192,19 @@ const RetirementCalculator = () => {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-2">
-            <p className="col-span-2 text-lg text-gray-500">Desglose</p>
+          <div className='grid grid-cols-2 gap-2'>
+            <p className='col-span-2 text-lg text-gray-500'>Desglose</p>
             <p>Cuotas</p>
             <p>{jubilacion?.cuotasTotales}</p>
-            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <span className='w-full h-[1px] border-b border-b-gray-300 col-span-2' />
             <p>Factor actuarial</p>
             <p>{jubilacion?.factorActuarial}</p>
-            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <span className='w-full h-[1px] border-b border-b-gray-300 col-span-2' />
             <p>Interés compuesto</p>
-            <div className="flex items-center gap-2">
+            <div className='flex items-center gap-2'>
               <p>{jubilacion?.tasaInteresCompuesto! * 100}% </p>
               <Popover
-                title={"Interés compuesto"}
+                title={'Interés compuesto'}
                 content={
                   <p>
                     La tasa de interés compuesto es el porcentaje que se aplica
@@ -214,12 +217,12 @@ const RetirementCalculator = () => {
                 <InfoCircleOutlined />
               </Popover>
             </div>
-            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <span className='w-full h-[1px] border-b border-b-gray-300 col-span-2' />
             <p>Capitalización individual</p>
-            <div className="flex items-center gap-2">
+            <div className='flex items-center gap-2'>
               <p>{jubilacion?.tasaAporte! * 100}%</p>
               <Popover
-                title="Capitalización individual"
+                title='Capitalización individual'
                 content={
                   <p>
                     La capitalización individual es la tasa de aporte personal
@@ -233,19 +236,19 @@ const RetirementCalculator = () => {
                 <InfoCircleOutlined size={16} />
               </Popover>
             </div>
-            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <span className='w-full h-[1px] border-b border-b-gray-300 col-span-2' />
             <p>Fondos acumulados</p>
             <p>{formatSalary(Number(jubilacion?.fondoTotal))}</p>
-            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <span className='w-full h-[1px] border-b border-b-gray-300 col-span-2' />
             <p>Jubilacion con garantia</p>
-            <p className="font-bold">
+            <p className='font-bold'>
               {formatSalary(Number(jubilacion?.pensionFinalConGarantía))}
             </p>
           </div>
         </section>
       )}
     </main>
-  );
-};
+  )
+}
 
-export default RetirementCalculator;
+export default RetirementCalculator
