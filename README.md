@@ -21,7 +21,7 @@ ChenChen Panamá inició como un pequeño proyecto personal que busca reunir dat
 Como cualquier otro proyecto de toda la vida, simplemente:
 
 ```bash
-git clone https://github.com/yourusername/chenchen-panama.git
+git clone https://github.com/jcastaneda06/chenchen-panama.git
 cd chenchen-panama
 npm install
 ```
