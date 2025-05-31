@@ -1,4 +1,8 @@
-import { FileUser, HandCoins, Scroll } from "lucide-react";
+import {
+  DollarOutlined,
+  FileDoneOutlined,
+  PaperClipOutlined,
+} from "@ant-design/icons";
 import { FC, ReactNode } from "react";
 import { useNavigate } from "react-router";
 
@@ -37,17 +41,17 @@ const Home: FC = () => {
       <section className="grid grid-cols-2 gap-4">
         <GridMenuButton
           text="Planilla Asamblea"
-          icon={<FileUser />}
+          icon={<FileDoneOutlined />}
           onClick={() => navigate("/planilla-asamblea")}
         />
         <GridMenuButton
           text="Documentos"
-          icon={<Scroll />}
+          icon={<PaperClipOutlined />}
           onClick={() => navigate("/documentos")}
         />
         <GridMenuButton
           text="Calculadora de Jubilación Ley 462"
-          icon={<HandCoins />}
+          icon={<DollarOutlined />}
           onClick={() => navigate("/calculo-jubilacion")}
         />
       </section>

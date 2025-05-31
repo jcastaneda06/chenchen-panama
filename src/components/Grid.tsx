@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useState } from "react";
-import { Planilla } from "../types/Data";
+import { Planilla } from "../types/Planilla";
 import moment from "moment";
 import { ArrowRight, ArrowLeft } from "lucide-react";
 

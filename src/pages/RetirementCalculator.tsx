@@ -1,77 +1,137 @@
-import { RefObject, useRef, useState } from "react";
+import { useState } from "react";
 import Information from "../components/Info";
 import TextInput from "../components/TextInput";
 import { formatSalary } from "../helpers";
-import { Info, X } from "lucide-react";
+import InfoCircleOutlined from "@ant-design/icons";
+import CalculatorOutlined from "@ant-design/icons";
+import { Pension } from "../types/Pension";
+import { Button, Popover } from "antd";
 
 const RetirementCalculator = () => {
+  const [pension, setPension] = useState<Pension>();
   const [salarioMensual, setSalarioMensual] = useState<string>("");
   const [tiempoTrabajo, setTiempoTrabajo] = useState<string>("");
+  const [edadJubilacion, setEdadJubilacion] = useState<string>("");
 
-  const interesCompuestoRef = useRef<HTMLDivElement>(null);
-  const capitalizacionRef = useRef<HTMLDivElement>(null);
+  function getFactorActuarial(edad: number): number {
+    const factores: { [edad: number]: number } = {
+      35: 3.84,
+      36: 3.87,
+      37: 3.89,
+      38: 3.92,
+      39: 3.95,
+      40: 3.98,
+      41: 4.01,
+      42: 4.04,
+      43: 4.08,
+      44: 4.11,
+      45: 4.15,
+      46: 4.19,
+      47: 4.23,
+      48: 4.27,
+      49: 4.32,
+      50: 4.37,
+      51: 4.42,
+      52: 4.47,
+      53: 4.52,
+      54: 4.58,
+      55: 4.64,
+      56: 4.7,
+      57: 4.77,
+      58: 4.84,
+      59: 4.91,
+      60: 4.99,
+      61: 5.07,
+      62: 5.15,
+      63: 5.24,
+      64: 5.34,
+      65: 5.44,
+      66: 5.55,
+      67: 5.66,
+      68: 5.78,
+      69: 5.91,
+      70: 6.04,
+      71: 6.18,
+      72: 6.33,
+      73: 6.49,
+      74: 6.66,
+      75: 6.85,
+      76: 7.04,
+      77: 7.24,
+      78: 7.46,
+      79: 7.69,
+      80: 7.94,
+    };
 
-  const handleCalcularPension = ({
-    tasaInteresCompuesto = 0.04,
-    tasaAporte = 0.135,
-    factorActuarial = 200,
-  }: {
-    tasaInteresCompuesto?: number;
-    tasaAporte?: number;
-    factorActuarial?: number;
-  }) => {
-    const anios = Number(tiempoTrabajo);
+    const edadClamped = Math.max(35, Math.min(80, Math.floor(edad)));
+
+    return factores[edadClamped];
+  }
+
+  const handleCalcularPension = (pension: Pension) => {
+    const { tiempoTrabajo, tasaAporte, tasaInteresCompuesto, edadJubilacion } =
+      pension;
+
     const salario = Number(salarioMensual);
-    const cuotas = anios * 12;
+    const cuotasTotales = tiempoTrabajo * 12;
     const tasaMensual = tasaInteresCompuesto / 12;
-    let fondo = 0;
 
-    for (let m = 0; m < cuotas; m++) {
-      fondo = fondo * (1 + tasaMensual) + salario * tasaAporte;
+    let fondoTotal = 0;
+
+    for (let m = 0; m < cuotasTotales; m++) {
+      fondoTotal = fondoTotal * (1 + tasaMensual) + salario * tasaAporte;
     }
 
-    const pensionMensualEstimado = fondo / factorActuarial;
+    const factorActuarial = getFactorActuarial(edadJubilacion);
+    const pensionMensualEstimado = (fondoTotal / 1000) * factorActuarial;
+
+    // Garantía mínima legal (ajustada a Ley 462)
     let pensionFinalConGarantía = pensionMensualEstimado;
 
-    if (cuotas >= 240 && pensionMensualEstimado < 294.4) {
-      pensionFinalConGarantía = 294.4;
+    if (cuotasTotales >= 240 && pensionMensualEstimado < 265) {
+      pensionFinalConGarantía = 265;
     } else if (
-      cuotas >= 180 &&
-      cuotas < 240 &&
-      pensionMensualEstimado < 160.0
+      cuotasTotales >= 120 &&
+      cuotasTotales < 240 &&
+      pensionMensualEstimado < 144
     ) {
-      pensionFinalConGarantía = 160.0;
-    } else if (cuotas < 180) {
+      pensionFinalConGarantía = 144;
+    } else if (cuotasTotales < 120) {
       pensionFinalConGarantía = 0;
     }
 
     return {
-      cuotas,
-      fondoAcumulado: fondo.toFixed(2),
+      cuotasAntes: 0,
+      cuotasDespues: cuotasTotales,
+      cuotasTotales,
+      fondoAntesLey: "0.00",
+      fondoDespuesLey: fondoTotal.toFixed(2),
+      fondoTotal: fondoTotal.toFixed(2),
       pensionMensualEstimado: pensionMensualEstimado.toFixed(2),
       pensionFinalConGarantía: pensionFinalConGarantía.toFixed(2),
       tasaInteresCompuesto,
       tasaAporte,
+      tasaAnteriorLey: 0,
       factorActuarial,
+      edadJubilacion,
+      fondoAdicionalRequerido: "0.00",
     };
   };
 
-  const jubilacion = handleCalcularPension({});
+  const handlePension = () => {
+    const pension: Pension = {
+      salarioMensual: Number(salarioMensual),
+      tiempoTrabajo: Number(tiempoTrabajo),
+      edadJubilacion: Number(edadJubilacion),
+      tasaInteresCompuesto: 0.04,
+      tasaAnteriorLey: 0.03,
+      tasaAporte: 0.135,
+    };
 
-  const toggleTooltip = (el: HTMLDivElement, value: "none" | "block") => {
-    el.style.display = value;
+    setPension(pension);
   };
 
-  const handleTooltip = (ref: RefObject<HTMLDivElement | null>) => {
-    if (ref.current) {
-      const display = ref.current.style.display;
-      if (display === "block") {
-        toggleTooltip(ref.current, "none");
-      } else {
-        toggleTooltip(ref.current, "block");
-      }
-    }
-  };
+  const jubilacion = pension && handleCalcularPension(pension);
 
   return (
     <main className="flex flex-col gap-4">
@@ -96,19 +156,32 @@ const RetirementCalculator = () => {
               onChange={(e) => setTiempoTrabajo(e.target.value)}
             />
           </div>
+          <div className="flex-1 flex flex-col justify-between">
+            <label>Edad de jubilacion</label>
+            <TextInput
+              value={edadJubilacion}
+              type="number"
+              onChange={(e) => setEdadJubilacion(e.target.value)}
+            />
+          </div>
+        </div>
+        <div>
+          <Button onClick={handlePension} icon={<CalculatorOutlined />}>
+            Calcular
+          </Button>
         </div>
       </section>
-      {Number(jubilacion.pensionMensualEstimado) > 0 && (
+      {Number(jubilacion?.pensionMensualEstimado) > 0 && (
         <section className="flex flex-col gap-4">
           <div className="text-xl">
             <p>Jubilacion estimada</p>
             <div className="flex gap-2 items-center">
               <p className="font-bold">
-                {formatSalary(Number(jubilacion.pensionMensualEstimado))}
+                {formatSalary(Number(jubilacion?.pensionMensualEstimado))}
               </p>
               <p className="text-gray-500 text-sm">
                 {(
-                  (Number(jubilacion.pensionMensualEstimado) /
+                  (Number(jubilacion?.pensionMensualEstimado) /
                     Number(salarioMensual)) *
                   100
                 ).toFixed(2)}
@@ -119,83 +192,54 @@ const RetirementCalculator = () => {
           <div className="grid grid-cols-2 gap-2">
             <p className="col-span-2 text-lg text-gray-500">Desglose</p>
             <p>Cuotas</p>
-            <p>{jubilacion.cuotas}</p>
+            <p>{jubilacion?.cuotasTotales}</p>
+            <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
+            <p>Factor actuarial</p>
+            <p>{jubilacion?.factorActuarial}</p>
             <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
             <p>Interés compuesto</p>
             <div className="flex items-center gap-2">
-              <p>{jubilacion.tasaInteresCompuesto * 100}% </p>
-              <div className="relative flex">
-                <div
-                  ref={interesCompuestoRef}
-                  className="absolute hidden -translate-x-1/2 left-3 bottom-10 w-[250px] bg-white p-4 shadow-md rounded border border-gray-300"
-                >
-                  <div className="text-gray-500 flex justify-between items-center mb-2">
-                    <p className="text-sm font-bold">Interés compuesto</p>
-                    <button
-                      className="input-base"
-                      onClick={() => handleTooltip(interesCompuestoRef)}
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                  <p className="text-gray-500 text-sm/tight">
+              <p>{jubilacion?.tasaInteresCompuesto! * 100}% </p>
+              <Popover
+                title={"Interés compuesto"}
+                content={
+                  <p>
                     La tasa de interés compuesto es el porcentaje que se aplica
                     a un monto de dinero que ahorras o inviertes, pero no solo
                     sobre el monto original, sino también sobre los intereses
                     que ya has ganado.
                   </p>
-                </div>
-                <button
-                  className="w-4 h-4 text-gray-500"
-                  onClick={() => handleTooltip(interesCompuestoRef)}
-                >
-                  <Info size={16} />
-                </button>
-              </div>
+                }
+              >
+                <InfoCircleOutlined />
+              </Popover>
             </div>
             <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
             <p>Capitalización individual</p>
             <div className="flex items-center gap-2">
-              <p>{jubilacion.tasaAporte * 100}%</p>
-              <div className="relative flex">
-                <div
-                  ref={capitalizacionRef}
-                  className="absolute hidden -translate-x-1/2 bottom-10 w-[250px] bg-white p-4 shadow-md rounded border border-gray-300"
-                >
-                  <div className="text-gray-500 flex justify-between items-center mb-2">
-                    <p className="text-sm font-bold">
-                      Capitalización individual
-                    </p>
-                    <button
-                      className="input-base"
-                      onClick={() => handleTooltip(capitalizacionRef)}
-                    >
-                      <X size={14} />
-                    </button>
-                  </div>
-                  <p className="text-gray-500 text-sm/tight">
+              <p>{jubilacion?.tasaAporte! * 100}%</p>
+              <Popover
+                title="Capitalización individual"
+                content={
+                  <p>
                     La capitalización individual es la tasa de aporte personal
                     (9.75%) más la tasa de aporte de tu empleador (13.25% hasta
                     febrero de 2027) de los cuales una porción (3.75%) se suma
                     la capitalización individual, y el resto se reparte a otros
                     programas de la CSS.
                   </p>
-                </div>
-                <button
-                  className="w-4 h-4 text-gray-500"
-                  onClick={() => handleTooltip(capitalizacionRef)}
-                >
-                  <Info size={16} />
-                </button>
-              </div>
+                }
+              >
+                <InfoCircleOutlined size={16} />
+              </Popover>
             </div>
             <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
             <p>Fondos acumulados</p>
-            <p>{formatSalary(Number(jubilacion.fondoAcumulado))}</p>
+            <p>{formatSalary(Number(jubilacion?.fondoTotal))}</p>
             <span className="w-full h-[1px] border-b border-b-gray-300 col-span-2" />
             <p>Jubilacion con garantia</p>
             <p className="font-bold">
-              {formatSalary(Number(jubilacion.pensionFinalConGarantía))}
+              {formatSalary(Number(jubilacion?.pensionFinalConGarantía))}
             </p>
           </div>
         </section>

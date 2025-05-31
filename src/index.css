@@ -24,16 +24,16 @@ html, body {
 .input-base {
     @apply border border-gray-300 focus:border-gray-500 p-1 rounded box-border disabled:bg-gray-100 hover:shadow-sm;
 }
-
+/* 
 .button {
-    @apply border border-blue-900 rounded-md bg-blue-900 text-white font-bold px-4 py-1 cursor-pointer hover:bg-blue-950 transition-all;
-}
+    @apply flex gap-2 items-center border border-blue-900 rounded-md bg-blue-900 text-white px-4 py-1 cursor-pointer hover:bg-blue-950 transition-all;
+} */
 
 .link-button {
     @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
     @apply border-b-4 hover:cursor-pointer hover:border-blue-500;
 }
-
+/* 
 table {
     @apply border border-gray-500 shadow-sm rounded;
 }
@@ -56,4 +56,4 @@ tbody tr {
 
 td {
     @apply p-2;
-}
+} */

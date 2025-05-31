@@ -1,10 +1,10 @@
 export type Planilla = {
-  entidad?: string;
   cedula: string;
-  posicion: number;
-  fechaInicio: string;
+  salarioBruto: number;
   nombre: string;
   apellido: string;
-  salarioBruto: number;
+  posicion: number;
+  fechaInicio: string;
+  entidad?: string;
   ubicacion: string;
 };

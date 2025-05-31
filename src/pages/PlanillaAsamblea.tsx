@@ -1,10 +1,54 @@
-import { Search, SortAsc, SortDesc } from "lucide-react";
 import { FC, useMemo, useState } from "react";
 import { Planilla, Filters } from "../types";
 import rawData from "../assets/data/data.json";
 import { useDebounce } from "use-debounce";
 import { formatSalary } from "../helpers";
-import PlanillaTable from "../components/Grid";
+import Table from "../components/Table";
+import { TableProps, Select } from "antd";
+import {
+  SearchOutlined,
+  SortAscendingOutlined,
+  SortDescendingOutlined,
+} from "@ant-design/icons";
+
+const headings: TableProps<Planilla>["columns"] = [
+  {
+    key: "cedula",
+    dataIndex: "cedula",
+    title: "Cedula",
+  },
+  {
+    key: "salario",
+    dataIndex: "salarioBruto",
+    title: "Salario",
+    render: (salario) => formatSalary(salario),
+  },
+  {
+    key: "nombre",
+    dataIndex: "nombre",
+    title: "Nombre",
+  },
+  {
+    key: "apellido",
+    dataIndex: "apellido",
+    title: "Apellido",
+  },
+  {
+    key: "posicion",
+    dataIndex: "posicion",
+    title: "Posicion",
+  },
+  {
+    key: "inicioLabores",
+    dataIndex: "fechaInicio",
+    title: "InicioLabores",
+  },
+  {
+    key: "planilla",
+    dataIndex: "ubicacion",
+    title: "Planilla",
+  },
+];
 
 const typedData: Planilla[] = rawData as Planilla[];
 const skipEntidad: keyof Planilla = "entidad";
@@ -83,11 +127,11 @@ const PlanillaAsamblea: FC = () => {
     setFilters({ ...filters });
   };
   return (
-    <div className="">
+    <>
       <div className="flex flex-col md:flex-row pb-4 gap-4">
         <div className="flex flex-col gap-4 basis-1/2 min-w-0">
           <div className="input-base flex items-center gap-2 px-2">
-            <Search className="text-gray-500" />
+            <SearchOutlined className="text-gray-500" />
             <input
               className="outline-0 w-full"
               type="text"
@@ -110,46 +154,50 @@ const PlanillaAsamblea: FC = () => {
                 }
               >
                 {filters.sort === "-asc" ? (
-                  <SortDesc size={20} />
+                  <SortDescendingOutlined size={20} />
                 ) : (
-                  <SortAsc size={20} />
+                  <SortAscendingOutlined size={20} />
                 )}
               </button>
-              <select
-                className="input-base"
-                value={filters.sortBy}
+              <Select
+                style={{ width: "100%" }}
+                placeholder="Seleccione orden"
                 onChange={(e) =>
                   handleSetFilters({
-                    sortBy: e.target.value as typeof filters.sortBy,
+                    sortBy: e as typeof filters.sortBy,
                     sort: filters.sort,
                     planilla: filters.planilla,
                   })
                 }
-              >
-                <option value={"Salario"}>Salario</option>
-                <option value={"Nombre"}>Nombre</option>
-              </select>
+                options={[
+                  {
+                    label: "Salario",
+                    value: "Salario",
+                  },
+                  {
+                    label: "Nombre",
+                    value: "Nombre",
+                  },
+                ]}
+              />
             </div>
             <div className="flex gap-2 items-center">
               <p>Planilla:</p>
-              <select
-                className="input-base max-w-[200px] truncate"
+              <Select
                 value={filters.planilla}
+                style={{ width: "100%" }}
                 onChange={(e) =>
                   handleSetFilters({
                     sortBy: filters.sortBy,
                     sort: filters.sort,
-                    planilla: e.target.value,
+                    planilla: e,
                   })
                 }
-              >
-                <option value={""}>Todas</option>
-                {planillas.map((o, i) => (
-                  <option key={`${o}-${i}`} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
+                options={[
+                  { label: "Todas", value: "" },
+                  ...planillas.map((o) => ({ label: o, value: o })),
+                ]}
+              />
             </div>
           </div>
         </div>
@@ -177,11 +225,12 @@ const PlanillaAsamblea: FC = () => {
         </div>
       </div>
       {dataMemo.length > 0 ? (
-        <PlanillaTable data={dataMemo as Planilla[]} itemsPerPage={10} />
+        // <PlanillaTable data={dataMemo as Planilla[]} itemsPerPage={10} />
+        <Table columns={[...headings]} dataSource={dataMemo} />
       ) : (
-        <p>No data</p>
+        <Table columns={[]} dataSource={[]} />
       )}
-    </div>
+    </>
   );
 };
 

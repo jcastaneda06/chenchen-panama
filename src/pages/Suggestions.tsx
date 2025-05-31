@@ -1,6 +1,6 @@
-import { Mail, MessageCircle, User } from "lucide-react";
 import { FC } from "react";
 import Information from "../components/Info";
+import { MailOutlined, MessageOutlined, UserOutlined } from "@ant-design/icons";
 
 const Suggestions: FC = () => {
   return (
@@ -23,7 +23,7 @@ const Suggestions: FC = () => {
           >
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 items-center">
-                <User />
+                <UserOutlined />
                 <label htmlFor="name">Nombre</label>
               </div>
               <div>
@@ -37,7 +37,7 @@ const Suggestions: FC = () => {
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 items-center">
-                <Mail />
+                <MailOutlined />
                 <label htmlFor="email">Correo</label>
               </div>
               <div>
@@ -51,7 +51,7 @@ const Suggestions: FC = () => {
             </div>
             <div className="flex flex-col gap-2">
               <div className="flex gap-2 items-center">
-                <MessageCircle />
+                <MessageOutlined />
                 <label htmlFor="message">Mensaje o sugerencia</label>
               </div>
               <div>
